@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c7d2e6"/>
+    </linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7b0"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Thân chuột -->
+  <path d="M16 30 C16 17 22 12 29 12 C36 12 42 17 42 30 L42 40 C42 49 37 53 29 53 C21 53 16 49 16 40 Z" fill="url(#body)"/>
+  <!-- Nút trái tô vàng -->
+  <path d="M16 30 C16 17 22 12 29 12 L29 33 L16 33 Z" fill="url(#btn)"/>
+  <path d="M29 12 L29 33 M16 33 L42 33" stroke="#94a3b8" stroke-width="2" fill="none"/>
+  <!-- Con trỏ -->
+  <path d="M34 34 L34 56 L39 51 L43 60 L47 58 L43 49 L50 49 Z" fill="#2b2d42" stroke="#ffffff" stroke-width="2.4" stroke-linejoin="round"/>
+</svg>

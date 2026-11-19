@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 340" width="1100" height="340" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset=".55" stop-color="#ec4899"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".3" cy=".25" r=".8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".6" stop-color="#e2e8f5"/>
+      <stop offset="1" stop-color="#b9c5dc"/>
+    </linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7b0"/>
+      <stop offset=".5" stop-color="#ffd23f"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7ae"/>
+      <stop offset=".45" stop-color="#ffd23f"/>
+      <stop offset="1" stop-color="#ff7a3d"/>
+    </linearGradient>
+    <filter id="drop" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#1e1b4b" flood-opacity=".38"/>
+    </filter>
+  </defs>
+
+  <!-- Biểu tượng: cùng thiết kế với assets/icon.svg, thu nhỏ -->
+  <g transform="translate(10 10) scale(.6)">
+    <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+    <rect width="512" height="512" rx="116" fill="url(#glow)"/>
+    <g filter="url(#drop)">
+      <path d="M160 206 C160 142 204 116 256 116 C308 116 352 142 352 206 L352 326 C352 390 314 414 256 414 C198 414 160 390 160 326 Z" fill="url(#body)"/>
+      <path d="M160 206 C160 142 204 116 252 116 L252 258 L160 258 Z" fill="url(#btn)"/>
+      <path d="M256 116 L256 258 M160 258 L352 258" stroke="#94a3b8" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <rect x="238" y="160" width="36" height="62" rx="18" fill="#cbd5e1" stroke="#94a3b8" stroke-width="5"/>
+    </g>
+    <path d="M292 262 L292 420 L326 388 L352 448 L378 437 L352 378 L400 378 Z" fill="#2b2d42" stroke="#ffffff" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M420 92 L430 118 L456 128 L430 138 L420 164 L410 138 L384 128 L410 118 Z" fill="#ffffff"/>
+  </g>
+
+  <!-- Chữ logo 3D -->
+  <g font-family="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif" font-weight="900" font-size="88" letter-spacing="1">
+    <!-- Khối 3D: các lớp bóng xếp chồng -->
+    <g fill="#4c1d95">
+      <text x="380" y="168">LUYỆN CHUỘT</text>
+      <text x="380" y="168" transform="translate(0 6)">LUYỆN CHUỘT</text>
+    </g>
+    <g fill="#7c2d12">
+      <text x="380" y="284">CÙNG EM</text>
+      <text x="380" y="284" transform="translate(0 6)">CÙNG EM</text>
+    </g>
+    <text x="380" y="168" fill="url(#word)" stroke="#ffffff" stroke-width="2" paint-order="stroke">LUYỆN CHUỘT</text>
+    <text x="380" y="284" fill="url(#word)" stroke="#ffffff" stroke-width="2" paint-order="stroke">CÙNG EM</text>
+  </g>
+</svg>
