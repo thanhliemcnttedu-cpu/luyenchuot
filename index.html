@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luyện Chuột Cùng Em</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" href="assets/icon.svg">
     <meta name="theme-color" content="#8b5cf6">
@@ -295,6 +296,51 @@
             white-space: nowrap; /* tên bài luôn một dòng, không rơi chữ */
         }
         #game-title { white-space: nowrap; }
+
+        /* Nút bật/tắt nhạc nền */
+        .music-toggle {
+            position: fixed; left: 12px; bottom: 12px; z-index: 300;
+            padding: 8px 14px; border-radius: 999px; border: 4px solid var(--ink);
+            background: #fff; color: var(--ink); font-weight: 900; font-size: .8rem; letter-spacing: .05em;
+            cursor: pointer; box-shadow: 0 5px 0 var(--ink);
+        }
+        .music-toggle:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
+        .music-toggle[aria-pressed="false"] { background: #e2e8f0; }
+
+        /* Điện thoại: tên bài vẫn một dòng và nằm gọn trong thẻ */
+        @media (max-width: 480px) {
+            #home-screen .lesson-card { padding: 12px; gap: 12px; }
+            #home-screen .lesson-card .icon { width: 56px !important; height: 56px !important; }
+            #home-screen .lesson-card h3 { font-size: clamp(.7rem, 3.8cqi, 1.1rem) !important; }
+        }
+
+        /* ===== Thông tin tác giả ===== */
+        .author-card {
+            display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); flex-wrap: wrap;
+            width: 100%; max-width: 100%; box-sizing: border-box; margin-top: 18px; padding: clamp(14px, 2vw, 24px);
+            background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%); border: 4px solid var(--ink);
+            border-radius: 26px; box-shadow: 0 8px 0 var(--ink);
+        }
+        .author-qr { display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
+        .author-qr:hover { transform: translateY(-3px); }
+        .author-qr #author-qr-box {
+            display: block; width: clamp(120px, 14vw, 160px); height: clamp(120px, 14vw, 160px);
+            padding: 8px; background: #fff; border: 4px solid var(--ink); border-radius: 18px;
+        }
+        .author-qr #author-qr-box img, .author-qr #author-qr-box table { width: 100% !important; height: 100% !important; display: block; }
+        .author-qr-fallback { display: flex; height: 100%; align-items: center; justify-content: center; font-weight: 900; color: #0068ff; }
+        .author-qr-caption { font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #334155; }
+        .author-info { flex: 1 1 260px; min-width: 0; }
+        .author-kicker { font-size: .75rem; font-weight: 900; letter-spacing: .14em; color: #64748b; }
+        .author-name { font-weight: 900; font-size: clamp(1.2rem, 2.6vw, 2rem); color: #1e1b4b; margin: 4px 0 6px; line-height: 1.15; }
+        .author-line { font-weight: 700; color: #334155; font-size: clamp(.95rem, 1.2vw, 1.15rem); }
+        .author-btn {
+            display: inline-block; margin-top: 12px; padding: 10px 22px; border-radius: 999px; border: 4px solid var(--ink);
+            background: linear-gradient(180deg, #7cb8ff, #0068ff); color: #fff; font-weight: 900; letter-spacing: .06em;
+            text-decoration: none; box-shadow: 0 5px 0 var(--ink);
+        }
+        .author-btn:hover { filter: brightness(1.05); }
+        .author-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
 
         /* ===== Bài 8: Dots — bàn chơi nối chấm ===== */
         #dots-board {
@@ -743,6 +789,8 @@
     </defs>
 </svg>
 
+<button id="music-toggle" class="music-toggle" onclick="musicToggle()" aria-pressed="true">♪ NHẠC: BẬT</button>
+
 <!-- ============ MÀN HÌNH CHÍNH ============ -->
 <div id="home-screen" class="home-bg absolute inset-0 flex flex-col items-center p-4 md:p-6 z-10 overflow-y-auto custom-scroll">
     <!-- Họa tiết nền chuyển động -->
@@ -849,6 +897,20 @@
             </button>
         </div>
         <p class="text-center font-bold mt-6 text-sm" style="color:#4c1d95;">Mỗi ngày luyện 10 phút, chuột sẽ ngày càng khéo léo!</p>
+
+        <!-- Thông tin tác giả: quét mã QR hoặc bấm mã để nhắn Zalo -->
+        <section class="author-card" aria-label="Thông tin tác giả">
+            <a class="author-qr" href="https://zalo.me/0888358363" target="_blank" rel="noopener" title="Bấm hoặc quét để nhắn Zalo">
+                <span id="author-qr-box"><span class="author-qr-fallback">Mở Zalo</span></span>
+                <span class="author-qr-caption">Quét để nhắn Zalo</span>
+            </a>
+            <div class="author-info">
+                <div class="author-kicker">TÁC GIẢ PHẦN MỀM</div>
+                <div class="author-name">NGUYỄN THANH LIÊM</div>
+                <div class="author-line">Điện thoại Zalo: <b>0888358363</b></div>
+                <a class="author-btn" href="https://zalo.me/0888358363" target="_blank" rel="noopener">NHẮN ZALO ▶</a>
+            </div>
+        </section>
     </div>
 </div>
 
@@ -3000,6 +3062,149 @@ function showStickSummary() {
     showOnly('summary-screen');
     speakPraise('Chúc mừng bạn đã hoàn thành cả 5 chặng khéo tay!');
 }
+
+// Mã QR dẫn tới Zalo của tác giả (tạo ngay trên máy, không gửi số điện thoại ra ngoài)
+(function makeAuthorQR() {
+    const box = $('author-qr-box');
+    if (!box) return;
+    if (typeof qrcode !== 'function') return; // thư viện chưa tải được: giữ nhãn "Mở Zalo"
+    try {
+        const qr = qrcode(0, 'M');
+        qr.addData('https://zalo.me/0888358363');
+        qr.make();
+        box.innerHTML = qr.createImgTag(6, 4);
+    } catch (e) { /* giữ nhãn dự phòng */ }
+})();
+
+// =====================================================================
+//  PHẦN 10: NHẠC NỀN NHẸ NHÀNG, VUI TƯƠI (tạo bằng Web Audio, không cần tệp ngoài)
+//  Vòng nhạc 4 ô nhịp, hợp âm Đô – La thứ – Fa – Sol, giai điệu ngũ cung dễ nghe.
+// =====================================================================
+const MUSIC = { on: true, started: false, timer: null, gain: null, nextTime: 0, bar: 0 };
+const MUSIC_BEAT = 60 / 100;   // 100 nhịp mỗi phút: chậm, dễ chịu
+const MUSIC_CHORDS = [
+    [261.63, 329.63, 392.00],  // Đô
+    [220.00, 261.63, 329.63],  // La thứ
+    [174.61, 220.00, 261.63],  // Fa
+    [196.00, 246.94, 293.66]   // Sol
+];
+const MUSIC_MELODY = [
+    [329.63, 392.00, 523.25, 392.00],   // Đô
+    [440.00, 523.25, 659.25, 523.25],   // La thứ
+    [349.23, 440.00, 523.25, 440.00],   // Fa
+    [392.00, 493.88, 587.33, 392.00]    // Sol
+];
+
+function musicVoice(c, dest, freq, t, dur, type, amp) {
+    const o = c.createOscillator(), e = c.createGain();
+    o.type = type; o.frequency.value = freq;
+    e.gain.setValueAtTime(0.0001, t);
+    e.gain.exponentialRampToValueAtTime(amp, t + 0.04);
+    e.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(e); e.connect(dest);
+    o.start(t); o.stop(t + dur + 0.05);
+}
+
+function musicPlayBar(c, t0, bar) {
+    const g = MUSIC.gain;
+    MUSIC_CHORDS[bar].forEach(f => musicVoice(c, g, f, t0, MUSIC_BEAT * 4, 'sine', 0.05));     // đệm hợp âm
+    musicVoice(c, g, MUSIC_CHORDS[bar][0] / 2, t0, MUSIC_BEAT * 2, 'sine', 0.12);             // bass nhẹ
+    musicVoice(c, g, MUSIC_CHORDS[bar][0] / 2, t0 + MUSIC_BEAT * 2, MUSIC_BEAT * 2, 'sine', 0.1);
+    let t = t0;
+    MUSIC_MELODY[bar].forEach(f => { musicVoice(c, g, f, t, MUSIC_BEAT * 0.9, 'triangle', 0.09); t += MUSIC_BEAT; }); // giai điệu
+}
+
+function musicTick() {
+    if (!MUSIC.on || !MUSIC.gain) return;
+    const c = ctx();
+    if (!c) return;
+    if (c.state === 'suspended') c.resume();
+    // Lên lịch trước vài ô nhịp để nhạc không bị đứt
+    while (MUSIC.nextTime < c.currentTime + 0.4) {
+        musicPlayBar(c, MUSIC.nextTime, MUSIC.bar);
+        MUSIC.nextTime += MUSIC_BEAT * 4;
+        MUSIC.bar = (MUSIC.bar + 1) % 4;
+    }
+    MUSIC.timer = setTimeout(musicTick, 120);
+}
+
+// Nếu có tệp nhạc riêng (assets/music/bgm.mp3) thì phát tệp đó; nếu không, dùng nhạc tổng hợp
+const BGM_SRC = 'assets/music/bgm.mp3';
+let bgmEl = null, bgmFailed = false;
+
+function musicStart() {
+    if (MUSIC.started || !MUSIC.on) return;
+    if (!bgmFailed) {
+        if (!bgmEl) {
+            bgmEl = new Audio(BGM_SRC);
+            bgmEl.loop = true;
+            bgmEl.volume = 0.245;   // âm lượng nhạc nền: giảm 30% so với mức cũ (0.35 → 70%)
+            // Tệp quá ngắn (dưới 5 giây) sẽ lặp rất nhanh, nên không dùng: chuyển sang nhạc tổng hợp
+            bgmEl.onloadedmetadata = () => {
+                if (bgmEl && !(bgmEl.duration > 5)) {
+                    bgmFailed = true; bgmEl.pause(); bgmEl = null; MUSIC.started = false;
+                    if (MUSIC.on) musicStart();
+                }
+            };
+            bgmEl.onerror = () => {
+                bgmFailed = true; bgmEl = null; MUSIC.started = false;
+                if (MUSIC.on) musicStart();          // không có tệp: chuyển sang nhạc tổng hợp
+            };
+        }
+        MUSIC.started = true;
+        bgmEl.play().catch(() => { if (!bgmFailed) MUSIC.started = false; });   // trình duyệt chặn: thử lại ở lần chạm sau
+        // Phát đi phát lại: nếu nhạc bị dừng vì lý do nào đó khi đang chơi, tự phát tiếp
+        bgmEl.onended = () => { if (MUSIC.on && bgmEl) bgmEl.play().catch(() => {}); };
+        if (!MUSIC.watch) {
+            MUSIC.watch = setInterval(() => {
+                if (MUSIC.on && bgmEl && bgmEl.paused && MUSIC.started) bgmEl.play().catch(() => {});
+            }, 2000);
+        }
+        return;
+    }
+    musicStartSynth();
+}
+
+function musicStartSynth() {
+    if (MUSIC.started || !MUSIC.on) return;
+    const c = ctx();
+    if (!c) return;
+    MUSIC.started = true;
+    MUSIC.gain = c.createGain();
+    MUSIC.gain.gain.value = 0.63;   // nhạc tổng hợp: giảm 30% so với mức cũ (0.9 → 70%)
+    MUSIC.gain.connect(c.destination);
+    MUSIC.nextTime = c.currentTime + 0.1;
+    MUSIC.bar = 0;
+    musicTick();
+}
+
+function musicStop() {
+    clearTimeout(MUSIC.timer);
+    if (bgmEl) bgmEl.pause();
+    MUSIC.started = false;
+    if (MUSIC.gain) { try { MUSIC.gain.disconnect(); } catch (e) {} MUSIC.gain = null; }
+}
+
+function musicRefreshButton() {
+    const b = $('music-toggle');
+    if (!b) return;
+    b.innerText = MUSIC.on ? '♪ NHẠC: BẬT' : '♪ NHẠC: TẮT';
+    b.setAttribute('aria-pressed', String(MUSIC.on));
+}
+
+window.musicToggle = function () {
+    MUSIC.on = !MUSIC.on;
+    try { localStorage.setItem('luyenchuot-music', MUSIC.on ? '1' : '0'); } catch (e) {}
+    if (MUSIC.on) musicStart(); else musicStop();
+    musicRefreshButton();
+};
+
+// Trình duyệt chỉ cho phát âm thanh sau khi học sinh chạm/nhấn phím lần đầu
+['pointerdown', 'keydown'].forEach(evt =>
+    document.addEventListener(evt, () => { if (MUSIC.on && !MUSIC.started) musicStart(); }, true));
+
+try { if (localStorage.getItem('luyenchuot-music') === '0') MUSIC.on = false; } catch (e) {}
+musicRefreshButton();
 
 paintStaticArt();
 </script>
