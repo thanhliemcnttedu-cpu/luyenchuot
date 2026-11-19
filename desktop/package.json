@@ -1,0 +1,48 @@
+{
+  "name": "luyen-chuot-cung-em",
+  "productName": "Luyện Chuột Cùng Em",
+  "version": "1.0.0",
+  "description": "Phần mềm luyện kỹ năng sử dụng chuột cho học sinh tiểu học",
+  "author": "Nguyễn Thanh Liêm",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "prepare-web": "node prepare.js",
+    "start": "electron .",
+    "dist": "node prepare.js && electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "vn.luyenchuot.cungem",
+    "productName": "Luyện Chuột Cùng Em",
+    "copyright": "Bản quyền © 2026 Nguyễn Thanh Liêm",
+    "directories": { "output": "../dist", "buildResources": "build" },
+    "files": ["main.js", "package.json", "icon.ico", "web/**/*"],
+    "win": {
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Luyện Chuột Cùng Em",
+      "uninstallDisplayName": "Luyện Chuột Cùng Em",
+      "artifactName": "LuyenChuotCungEm-Setup-${version}.${ext}",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "installerHeader": "build/installerHeader.bmp",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "license": "build/LICENSE.txt",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

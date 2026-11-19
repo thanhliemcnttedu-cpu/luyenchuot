@@ -1,0 +1,15 @@
+# Thư viện và kết quả build (không đưa lên kho)
+node_modules/
+desktop/node_modules/
+dist/
+desktop/dist/
+desktop/web/
+
+# Thư mục công cụ sinh ra khi làm việc
+.claude-flow/
+.swarm/
+.claude/
+
+# File hệ thống
+Thumbs.db
+.DS_Store
